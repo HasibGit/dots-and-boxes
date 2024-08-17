@@ -15,6 +15,7 @@
 
 .horizontal-wrapper:hover {
   .horizontal-line {
+    height: 4px;
     background: linear-gradient(to right, #ff8008, #ffc837);
   }
 }
@@ -36,6 +37,7 @@
 
 .vertical-wrapper:hover {
   .vertical-line {
+    width: 4px;
     background: linear-gradient(to right, #ff8008, #ffc837);
   }
 }

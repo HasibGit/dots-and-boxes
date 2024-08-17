@@ -7,7 +7,9 @@ interface LineProps {
 
 const Line: React.FC<LineProps> = ({ horizontal }) => {
   return (
-    <div className={horizontal ? "horizonal-line" : "vertical-line"}></div>
+    <div className={horizontal ? "horizontal-wrapper" : "vertical-wrapper"}>
+      <div className={horizontal ? "horizontal-line" : "vertical-line"}></div>
+    </div>
   );
 };
 

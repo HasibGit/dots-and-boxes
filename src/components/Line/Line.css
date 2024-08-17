@@ -1,20 +1,41 @@
-.horizonal-line {
+.horizontal-line {
   width: 30px;
   height: 2px;
-  background-color: #c9b0b0;
   margin: 0 4px;
   border-radius: 10px;
+  background-color: transparent;
+}
+
+.horizontal-wrapper {
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.horizontal-wrapper:hover {
+  .horizontal-line {
+    background: linear-gradient(to right, #ff8008, #ffc837);
+  }
 }
 
 .vertical-line {
   width: 2px;
   height: 30px;
-  background-color: black;
   margin: 4px 0;
   border-radius: 10px;
+  background-color: transparent;
 }
 
-.horizontal-line,
-.vertical-line {
-  background-color: black;
+.vertical-wrapper {
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vertical-wrapper:hover {
+  .vertical-line {
+    background: linear-gradient(to right, #ff8008, #ffc837);
+  }
 }

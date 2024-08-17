@@ -2,5 +2,14 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: linear-gradient(to right, #d7dde8, #757f9a);
+}
+
+.blink {
+  background: linear-gradient(to right, #ff4e50, #f9d423);
+}
+
+.dot {
+  &:not(.blink) {
+    background: linear-gradient(to right, #d7dde8, #757f9a);
+  }
 }

@@ -8,6 +8,20 @@ interface CourtProps {
 }
 
 const Court: React.FC<CourtProps> = ({ rows, cols }) => {
+  const handleMouseHover = (i: number, j: number, direction: string) => {
+    if (direction == "horizonal") {
+      const firstDot = `${i} - ${j}`;
+      const secondDot = `${i} - ${j + 1}`;
+      console.log(firstDot + " " + secondDot);
+    }
+
+    if (direction == "vertical") {
+      const firstDot = `${i} - ${j}`;
+      const secondDot = `${i + 1} - ${j}`;
+      console.log(firstDot + " " + secondDot);
+    }
+  };
+
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
       {Array.from({ length: rows }, (_, i) => (
@@ -22,8 +36,14 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
           >
             {Array.from({ length: cols }, (_, j) => (
               <>
-                <Dot key={j}></Dot>
-                {j < cols - 1 && <Line horizontal={true} />}
+                <Dot key={i + "" + j}></Dot>
+                {j < cols - 1 && (
+                  <Line
+                    key={i + "line" + j}
+                    horizontal={true}
+                    onMouseEnter={() => handleMouseHover(i, j, "horizonal")}
+                  />
+                )}
               </>
             ))}
           </div>
@@ -38,9 +58,11 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
               }}
             >
               {Array.from({ length: cols }, (_, j) => (
-                <React.Fragment key={j}>
-                  <Line horizontal={false} />
-                </React.Fragment>
+                <Line
+                  key={i + "" + j}
+                  horizontal={false}
+                  onMouseEnter={() => handleMouseHover(i, j, "vertical")}
+                />
               ))}
             </div>
           )}

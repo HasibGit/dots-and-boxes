@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Dot from "../Dot/Dot";
 import Line from "../Line/Line";
 
@@ -7,28 +7,74 @@ interface CourtProps {
   cols: number;
 }
 
-interface DotCoordinates {
+interface DotCoordinate {
   i: number;
   j: number;
 }
 
+interface Line {
+  start: DotCoordinate;
+  end: DotCoordinate;
+  connected: boolean;
+}
+
 const Court: React.FC<CourtProps> = ({ rows, cols }) => {
-  const [dotsToBeConnected, setDotsToBeConnected] = React.useState<
-    DotCoordinates[]
-  >([]);
+  const [dotsToBeConnected, setDotsToBeConnected] = useState<DotCoordinate[]>(
+    []
+  );
+  const [lines, setLines] = useState<Line[]>([]);
+
+  useEffect(() => {
+    calculateRowWisePossibleLines();
+    //calculateColWisePossibleLines();
+  }, []);
+
+  const calculateRowWisePossibleLines = () => {
+    const linesCopy = [...lines];
+    for (let i = 0; i < rows; i++) {
+      for (let j = 0; j < cols - 1; j++) {
+        const line: Line = {
+          start: { i, j },
+          end: { i, j: j + 1 },
+          connected: false,
+        };
+        linesCopy.push(line);
+      }
+    }
+
+    setLines(linesCopy);
+  };
+
+  const calculateColWisePossibleLines = () => {
+    const linesCopy = [...lines];
+
+    for (let j = 0; j < cols; j++) {
+      for (let i = 0; i < rows - 1; i++) {
+        const line: Line = {
+          start: { i, j },
+          end: { i: i + 1, j },
+          connected: false,
+        };
+        linesCopy.push(line);
+      }
+    }
+
+    console.log(linesCopy);
+    setLines(linesCopy);
+  };
 
   const handleMouseHover = (i: number, j: number, direction: string) => {
     if (direction == "horizonal") {
-      const firstDot: DotCoordinates = { i, j };
-      const secondDot: DotCoordinates = { i, j: j + 1 };
+      const firstDot: DotCoordinate = { i, j };
+      const secondDot: DotCoordinate = { i, j: j + 1 };
 
       const newDotsToBeConnected = [firstDot, secondDot];
       setDotsToBeConnected(newDotsToBeConnected);
     }
 
     if (direction == "vertical") {
-      const firstDot: DotCoordinates = { i, j };
-      const secondDot: DotCoordinates = { i: i + 1, j };
+      const firstDot: DotCoordinate = { i, j };
+      const secondDot: DotCoordinate = { i: i + 1, j };
 
       const newDotsToBeConnected = [firstDot, secondDot];
       setDotsToBeConnected(newDotsToBeConnected);

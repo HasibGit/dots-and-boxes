@@ -26,7 +26,7 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
 
   useEffect(() => {
     calculateRowWisePossibleLines();
-    //calculateColWisePossibleLines();
+    calculateColWisePossibleLines();
   }, []);
 
   const calculateRowWisePossibleLines = () => {
@@ -59,7 +59,6 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
       }
     }
 
-    console.log(linesCopy);
     setLines(linesCopy);
   };
 
@@ -83,6 +82,24 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
 
   const isDotToBeConnected = (i: number, j: number): boolean => {
     return dotsToBeConnected.some((dot) => dot.i == i && dot.j == j);
+  };
+
+  const handleLineClick = (i: number, j: number, direction: string) => {
+    if (direction == "horizonal") {
+      const firstDot: DotCoordinate = { i, j };
+      const secondDot: DotCoordinate = { i, j: j + 1 };
+
+      const newDotsToBeConnected = [firstDot, secondDot];
+      console.log(newDotsToBeConnected);
+    }
+
+    if (direction == "vertical") {
+      const firstDot: DotCoordinate = { i, j };
+      const secondDot: DotCoordinate = { i: i + 1, j };
+
+      const newDotsToBeConnected = [firstDot, secondDot];
+      console.log(newDotsToBeConnected);
+    }
   };
 
   return (
@@ -109,6 +126,7 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
                     horizontal={true}
                     onMouseEnter={() => handleMouseHover(i, j, "horizonal")}
                     onMouseLeave={() => setDotsToBeConnected([])}
+                    onLineClick={() => handleLineClick(i, j, "horizonal")}
                   />
                 )}
               </>
@@ -130,6 +148,7 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
                   horizontal={false}
                   onMouseEnter={() => handleMouseHover(i, j, "vertical")}
                   onMouseLeave={() => setDotsToBeConnected([])}
+                  onLineClick={() => handleLineClick(i, j, "vertical")}
                 />
               ))}
             </div>

@@ -14,8 +14,7 @@
 }
 
 .horizontal-wrapper:hover {
-  cursor: pointer;
-  .horizontal-line {
+  :not(.connected).horizontal-line {
     height: 4px;
     background: linear-gradient(to right, #ff8008, #ffc837);
   }
@@ -37,11 +36,14 @@
 }
 
 .vertical-wrapper:hover {
-  cursor: pointer;
-  .vertical-line {
+  :not(.connected).vertical-line {
     width: 4px;
     background: linear-gradient(to right, #ff8008, #ffc837);
   }
+}
+
+.vertical-wrapper .vertical-line.connected:hover {
+  background: linear-gradient(to right, #bbd2c5, #536976);
 }
 
 .connected {

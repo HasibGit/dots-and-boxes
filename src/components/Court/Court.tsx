@@ -183,7 +183,10 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
                     key={i + "line" + j}
                     horizontal={true}
                     isConnected={isLineConnected(i, j, "horizonal")}
-                    onMouseEnter={() => handleMouseHover(i, j, "horizonal")}
+                    onMouseEnter={() =>
+                      !isLineConnected(i, j, "horizonal") &&
+                      handleMouseHover(i, j, "horizonal")
+                    }
                     onMouseLeave={() => setDotsToBeConnected([])}
                     onLineClick={() => handleLineClick(i, j, "horizonal")}
                   />
@@ -206,7 +209,10 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
                   key={i + "" + j}
                   horizontal={false}
                   isConnected={isLineConnected(i, j, "vertical")}
-                  onMouseEnter={() => handleMouseHover(i, j, "vertical")}
+                  onMouseEnter={() =>
+                    !isLineConnected(i, j, "vertical") &&
+                    handleMouseHover(i, j, "vertical")
+                  }
                   onMouseLeave={() => setDotsToBeConnected([])}
                   onLineClick={() => handleLineClick(i, j, "vertical")}
                 />

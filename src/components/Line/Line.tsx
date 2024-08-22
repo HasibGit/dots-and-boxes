@@ -26,10 +26,7 @@ const Line: React.FC<LineProps> = ({
       onMouseLeave={onMouseLeave}
       onClick={onLineClick}
     >
-      <div
-        className={`${lineClass} ${isConnected ? "connected" : ""}`}
-        id="#line"
-      ></div>
+      <div className={`${lineClass} ${isConnected ? "connected" : ""}`}></div>
     </div>
   );
 };

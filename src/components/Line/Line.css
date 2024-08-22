@@ -43,7 +43,7 @@
 }
 
 .connected {
-  background: linear-gradient(to right, #ff512f, #dd2476);
+  background: linear-gradient(to right, #bbd2c5, #536976);
 
   &.horizontal-line {
     height: 4px;

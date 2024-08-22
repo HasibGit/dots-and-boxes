@@ -41,3 +41,15 @@
     background: linear-gradient(to right, #ff8008, #ffc837);
   }
 }
+
+.connected {
+  background: linear-gradient(to right, #ff512f, #dd2476);
+
+  &.horizontal-line {
+    height: 4px;
+  }
+
+  &.vertical-line {
+    width: 4px;
+  }
+}

@@ -25,11 +25,10 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
   const [lines, setLines] = useState<Line[]>([]);
 
   useEffect(() => {
-    calculateRowWisePossibleLines();
-    calculateColWisePossibleLines();
+    calculateLines();
   }, []);
 
-  const calculateRowWisePossibleLines = () => {
+  const calculateLines = () => {
     const linesCopy = [...lines];
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols - 1; j++) {
@@ -41,12 +40,6 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
         linesCopy.push(line);
       }
     }
-
-    setLines(linesCopy);
-  };
-
-  const calculateColWisePossibleLines = () => {
-    const linesCopy = [...lines];
 
     for (let j = 0; j < cols; j++) {
       for (let i = 0; i < rows - 1; i++) {
@@ -84,21 +77,86 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
     return dotsToBeConnected.some((dot) => dot.i == i && dot.j == j);
   };
 
+  const isSameDot = (
+    firstDot: DotCoordinate,
+    secondDot: DotCoordinate
+  ): boolean => {
+    return firstDot.i == secondDot.i && firstDot.j == secondDot.j;
+  };
+
+  const isDotPositionsMatch = (
+    line: Line,
+    firstDot: DotCoordinate,
+    secondDot: DotCoordinate
+  ): boolean => {
+    return isSameDot(line.start, firstDot) && isSameDot(line.end, secondDot);
+  };
+
   const handleLineClick = (i: number, j: number, direction: string) => {
     if (direction == "horizonal") {
       const firstDot: DotCoordinate = { i, j };
       const secondDot: DotCoordinate = { i, j: j + 1 };
 
-      const newDotsToBeConnected = [firstDot, secondDot];
-      console.log(newDotsToBeConnected);
+      const linesCopy = [...lines];
+
+      linesCopy.forEach((line) => {
+        if (!line.connected && isDotPositionsMatch(line, firstDot, secondDot)) {
+          line.connected = true;
+        }
+      });
+
+      setLines(linesCopy);
     }
 
     if (direction == "vertical") {
       const firstDot: DotCoordinate = { i, j };
       const secondDot: DotCoordinate = { i: i + 1, j };
 
-      const newDotsToBeConnected = [firstDot, secondDot];
-      console.log(newDotsToBeConnected);
+      const linesCopy = [...lines];
+
+      linesCopy.forEach((line) => {
+        if (!line.connected && isDotPositionsMatch(line, firstDot, secondDot)) {
+          line.connected = true;
+        }
+      });
+
+      setLines(linesCopy);
+    }
+  };
+
+  const isLineConnected = (
+    i: number,
+    j: number,
+    direction: string
+  ): boolean => {
+    if (direction == "horizonal") {
+      const firstDot: DotCoordinate = { i, j };
+      const secondDot: DotCoordinate = { i, j: j + 1 };
+
+      const line = lines.find(
+        (line) =>
+          line.connected && isDotPositionsMatch(line, firstDot, secondDot)
+      );
+
+      if (line) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      const firstDot: DotCoordinate = { i, j };
+      const secondDot: DotCoordinate = { i: i + 1, j };
+
+      const line = lines.find(
+        (line) =>
+          line.connected && isDotPositionsMatch(line, firstDot, secondDot)
+      );
+
+      if (line) {
+        return true;
+      } else {
+        return false;
+      }
     }
   };
 
@@ -124,6 +182,7 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
                   <Line
                     key={i + "line" + j}
                     horizontal={true}
+                    isConnected={isLineConnected(i, j, "horizonal")}
                     onMouseEnter={() => handleMouseHover(i, j, "horizonal")}
                     onMouseLeave={() => setDotsToBeConnected([])}
                     onLineClick={() => handleLineClick(i, j, "horizonal")}
@@ -146,6 +205,7 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
                 <Line
                   key={i + "" + j}
                   horizontal={false}
+                  isConnected={isLineConnected(i, j, "vertical")}
                   onMouseEnter={() => handleMouseHover(i, j, "vertical")}
                   onMouseLeave={() => setDotsToBeConnected([])}
                   onLineClick={() => handleLineClick(i, j, "vertical")}

@@ -87,8 +87,6 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
       }
     }
 
-    console.log(boxesCopy);
-
     setBoxes(boxesCopy);
   };
 
@@ -126,7 +124,10 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
     firstDot: IDotCoordinate,
     secondDot: IDotCoordinate
   ): boolean => {
-    return isSameDot(line.start, firstDot) && isSameDot(line.end, secondDot);
+    return (
+      (isSameDot(line.start, firstDot) && isSameDot(line.end, secondDot)) ||
+      (isSameDot(line.start, secondDot) && isSameDot(line.end, firstDot))
+    );
   };
 
   const handleLineClick = (i: number, j: number, direction: string) => {
@@ -143,6 +144,49 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
       });
 
       setLines(linesCopy);
+
+      const boxesCopy = [...boxes];
+
+      boxesCopy.forEach((box) => {
+        if (!box.connected) {
+          if (
+            !box.firstLine.connected &&
+            isDotPositionsMatch(box.firstLine, firstDot, secondDot)
+          ) {
+            box.firstLine.connected = true;
+          }
+          if (
+            !box.secondLine.connected &&
+            isDotPositionsMatch(box.secondLine, firstDot, secondDot)
+          ) {
+            box.secondLine.connected = true;
+          }
+          if (
+            !box.thirdLine.connected &&
+            isDotPositionsMatch(box.thirdLine, firstDot, secondDot)
+          ) {
+            box.thirdLine.connected = true;
+          }
+          if (
+            !box.forthLine.connected &&
+            isDotPositionsMatch(box.forthLine, firstDot, secondDot)
+          ) {
+            box.forthLine.connected = true;
+          }
+
+          if (
+            box.firstLine.connected &&
+            box.secondLine.connected &&
+            box.thirdLine.connected &&
+            box.forthLine.connected
+          ) {
+            box.connected = true;
+          }
+        }
+      });
+
+      console.log(boxesCopy);
+      setBoxes(boxesCopy);
     }
 
     if (direction == "vertical") {
@@ -158,6 +202,49 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
       });
 
       setLines(linesCopy);
+
+      const boxesCopy = [...boxes];
+
+      boxesCopy.forEach((box) => {
+        if (!box.connected) {
+          if (
+            !box.firstLine.connected &&
+            isDotPositionsMatch(box.firstLine, firstDot, secondDot)
+          ) {
+            box.firstLine.connected = true;
+          }
+          if (
+            !box.secondLine.connected &&
+            isDotPositionsMatch(box.secondLine, firstDot, secondDot)
+          ) {
+            box.secondLine.connected = true;
+          }
+          if (
+            !box.thirdLine.connected &&
+            isDotPositionsMatch(box.thirdLine, firstDot, secondDot)
+          ) {
+            box.thirdLine.connected = true;
+          }
+          if (
+            !box.forthLine.connected &&
+            isDotPositionsMatch(box.forthLine, firstDot, secondDot)
+          ) {
+            box.forthLine.connected = true;
+          }
+
+          if (
+            box.firstLine.connected &&
+            box.secondLine.connected &&
+            box.thirdLine.connected &&
+            box.forthLine.connected
+          ) {
+            box.connected = true;
+          }
+        }
+      });
+
+      console.log(boxesCopy);
+      setBoxes(boxesCopy);
     }
   };
 

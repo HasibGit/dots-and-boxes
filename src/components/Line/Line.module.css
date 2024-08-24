@@ -42,10 +42,6 @@
   }
 }
 
-.verticalWrapper .verticalLine.connected:hover {
-  background: linear-gradient(to right, #bbd2c5, #536976);
-}
-
 .partOfBox {
   background: linear-gradient(to right, #cb2d3e, #ef473a);
 }

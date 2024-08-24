@@ -181,11 +181,11 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
             box.forthLine.connected
           ) {
             box.connected = true;
+            box.connectedBy = "Hasib";
           }
         }
       });
 
-      console.log(boxesCopy);
       setBoxes(boxesCopy);
     }
 
@@ -239,11 +239,11 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
             box.forthLine.connected
           ) {
             box.connected = true;
+            box.connectedBy = "Hasib";
           }
         }
       });
 
-      console.log(boxesCopy);
       setBoxes(boxesCopy);
     }
   };

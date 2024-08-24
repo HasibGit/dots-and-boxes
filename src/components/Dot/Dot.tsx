@@ -1,14 +1,14 @@
 import React from "react";
-import "./Dot.css";
+import styles from "./Dot.module.css";
 import { IDotProps } from "../../interfaces/app.interface";
 
 const Dot: React.FC<IDotProps> = ({ shouldBlink, isPartOfConnectedBox }) => {
   return (
     <div
       className={
-        "dot " +
-        (shouldBlink ? "blink " : "") +
-        (isPartOfConnectedBox ? "part-of-box" : "")
+        `${styles.dot} ` +
+        (shouldBlink ? `${styles.blink} ` : "") +
+        (isPartOfConnectedBox ? `${styles.partOfBox} ` : "")
       }
     ></div>
   );

@@ -5,17 +5,17 @@
 }
 
 .blink {
-  &:not(.part-of-box) {
+  &:not(.partOfBox) {
     background: linear-gradient(to right, #ff4e50, #f9d423);
   }
 }
 
-.part-of-box {
-  background-color: red;
+.partOfBox {
+  background: linear-gradient(to right, #cb2d3e, #ef473a);
 }
 
 .dot {
-  &:not(.blink):not(.part-of-box) {
+  &:not(.blink):not(.partOfBox) {
     background: linear-gradient(to right, #d7dde8, #757f9a);
   }
 }

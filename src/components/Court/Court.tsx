@@ -112,7 +112,7 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
     return dotsToBeConnected.some((dot) => dot.i == i && dot.j == j);
   };
 
-  const isPartOfConnectedBox = (i: number, j: number): boolean => {
+  const isDotPartOfConnectedBox = (i: number, j: number): boolean => {
     const isMatchingCoordinate = (line: ILine) =>
       (line.start.i === i && line.start.j === j) ||
       (line.end.i === i && line.end.j === j);
@@ -124,6 +124,56 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
           isMatchingCoordinate
         )
     );
+  };
+
+  const isLinePartOfConnectedBox = (
+    i: number,
+    j: number,
+    alignment: string
+  ): boolean => {
+    if (alignment == "horizonal") {
+      const firstDot: IDotCoordinate = { i, j };
+      const secondDot: IDotCoordinate = { i, j: j + 1 };
+
+      return boxes.some(
+        (box) =>
+          box.connected &&
+          [box.firstLine, box.secondLine, box.thirdLine, box.forthLine].some(
+            (line) =>
+              (line.start.i == firstDot.i &&
+                line.start.j == firstDot.j &&
+                line.end.i == secondDot.i &&
+                line.end.j == secondDot.j) ||
+              (line.end.i == firstDot.i &&
+                line.end.j == firstDot.j &&
+                line.start.i == secondDot.i &&
+                line.start.j == secondDot.j)
+          )
+      );
+    }
+
+    if (alignment == "vertical") {
+      const firstDot: IDotCoordinate = { i, j };
+      const secondDot: IDotCoordinate = { i: i + 1, j };
+
+      return boxes.some(
+        (box) =>
+          box.connected &&
+          [box.firstLine, box.secondLine, box.thirdLine, box.forthLine].some(
+            (line) =>
+              (line.start.i == firstDot.i &&
+                line.start.j == firstDot.j &&
+                line.end.i == secondDot.i &&
+                line.end.j == secondDot.j) ||
+              (line.end.i == firstDot.i &&
+                line.end.j == firstDot.j &&
+                line.start.i == secondDot.i &&
+                line.start.j == secondDot.j)
+          )
+      );
+    }
+
+    return false;
   };
 
   const isSameDot = (
@@ -315,13 +365,18 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                 <Dot
                   key={i + "" + j}
                   shouldBlink={isDotToBeConnected(i, j)}
-                  isPartOfConnectedBox={isPartOfConnectedBox(i, j)}
+                  isPartOfConnectedBox={isDotPartOfConnectedBox(i, j)}
                 ></Dot>
                 {j < cols - 1 && (
                   <Line
                     key={i + "line" + j}
                     horizontal={true}
                     isConnected={isLineConnected(i, j, "horizonal")}
+                    isPartOfConnectedBox={isLinePartOfConnectedBox(
+                      i,
+                      j,
+                      "horizonal"
+                    )}
                     onMouseEnter={() =>
                       !isLineConnected(i, j, "horizonal") &&
                       handleMouseHover(i, j, "horizonal")
@@ -348,6 +403,11 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                   key={i + "" + j}
                   horizontal={false}
                   isConnected={isLineConnected(i, j, "vertical")}
+                  isPartOfConnectedBox={isLinePartOfConnectedBox(
+                    i,
+                    j,
+                    "vertical"
+                  )}
                   onMouseEnter={() =>
                     !isLineConnected(i, j, "vertical") &&
                     handleMouseHover(i, j, "vertical")

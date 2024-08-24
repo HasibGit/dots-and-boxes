@@ -1,4 +1,4 @@
-.horizontal-line {
+.horizontalLine {
   width: 30px;
   height: 2px;
   margin: 0 4px;
@@ -6,21 +6,21 @@
   background-color: transparent;
 }
 
-.horizontal-wrapper {
+.horizontalWrapper {
   height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.horizontal-wrapper:hover {
-  :not(.connected).horizontal-line {
+.horizontalWrapper:hover {
+  :not(.connected).horizontalLine {
     height: 4px;
     background: linear-gradient(to right, #ff8008, #ffc837);
   }
 }
 
-.vertical-line {
+.verticalLine {
   width: 2px;
   height: 30px;
   margin: 4px 0;
@@ -28,32 +28,38 @@
   background-color: transparent;
 }
 
-.vertical-wrapper {
+.verticalWrapper {
   width: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.vertical-wrapper:hover {
-  :not(.connected).vertical-line {
+.verticalWrapper:hover {
+  :not(.connected).verticalLine {
     width: 4px;
     background: linear-gradient(to right, #ff8008, #ffc837);
   }
 }
 
-.vertical-wrapper .vertical-line.connected:hover {
+.verticalWrapper .verticalLine.connected:hover {
   background: linear-gradient(to right, #bbd2c5, #536976);
 }
 
-.connected {
-  background: linear-gradient(to right, #bbd2c5, #536976);
+.partOfBox {
+  background: linear-gradient(to right, #cb2d3e, #ef473a);
+}
 
-  &.horizontal-line {
+.connected {
+  &:not(.partOfBox) {
+    background: linear-gradient(to right, #bbd2c5, #536976);
+  }
+
+  &.horizontalLine {
     height: 4px;
   }
 
-  &.vertical-line {
+  &.verticalLine {
     width: 4px;
   }
 }

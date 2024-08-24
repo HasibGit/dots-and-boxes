@@ -1,16 +1,21 @@
 import React from "react";
-import "./Line.css";
+import styles from "./Line.module.css";
 import { ILineProps } from "../../interfaces/app.interface";
 
 const Line: React.FC<ILineProps> = ({
   horizontal,
   isConnected,
+  isPartOfConnectedBox,
   onMouseEnter,
   onMouseLeave,
   onLineClick,
 }) => {
-  const wrapperClass = horizontal ? "horizontal-wrapper" : "vertical-wrapper";
-  const lineClass = horizontal ? "horizontal-line" : "vertical-line";
+  const wrapperClass = horizontal
+    ? `${styles.horizontalWrapper}`
+    : `${styles.verticalWrapper}`;
+  const lineClass = horizontal
+    ? `${styles.horizontalLine}`
+    : `${styles.verticalLine}`;
 
   return (
     <div
@@ -19,7 +24,11 @@ const Line: React.FC<ILineProps> = ({
       onMouseLeave={onMouseLeave}
       onClick={onLineClick}
     >
-      <div className={`${lineClass} ${isConnected ? "connected" : ""}`}></div>
+      <div
+        className={`${lineClass} ${isConnected ? `${styles.connected}` : " "} ${
+          isPartOfConnectedBox ? `${styles.partOfBox}` : ""
+        }`}
+      ></div>
     </div>
   );
 };

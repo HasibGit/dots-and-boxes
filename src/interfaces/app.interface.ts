@@ -25,3 +25,12 @@ export interface ILine {
   end: IDotCoordinate;
   connected: boolean;
 }
+
+export interface IBox {
+  firstLine: ILine;
+  secondLine: ILine;
+  thirdLine: ILine;
+  forthLine: ILine;
+  connected: boolean;
+  connectedBy: string;
+}

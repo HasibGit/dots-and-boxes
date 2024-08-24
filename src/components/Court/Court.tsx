@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Dot from "../Dot/Dot";
 import Line from "../Line/Line";
 import {
+  IBox,
   ICourtProps,
   IDotCoordinate,
   ILine,
@@ -12,9 +13,11 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
     []
   );
   const [lines, setLines] = useState<ILine[]>([]);
+  const [boxes, setBoxes] = useState<IBox[]>([]);
 
   useEffect(() => {
     calculateLines();
+    calculateBoxes();
   }, []);
 
   const calculateLines = () => {
@@ -42,6 +45,51 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
     }
 
     setLines(linesCopy);
+  };
+
+  const calculateBoxes = () => {
+    const boxesCopy = [...boxes];
+
+    for (let i = 0; i < rows - 1; i++) {
+      for (let j = 0; j < cols - 1; j++) {
+        const firstLine: ILine = {
+          start: { i, j },
+          end: { i, j: j + 1 },
+          connected: false,
+        };
+
+        const secondLine: ILine = {
+          start: { i, j: j + 1 },
+          end: { i: i + 1, j: j + 1 },
+          connected: false,
+        };
+
+        const thirdLine: ILine = {
+          start: { i: i + 1, j: j + 1 },
+          end: { i: i + 1, j },
+          connected: false,
+        };
+
+        const forthLine: ILine = {
+          start: { i: i + 1, j },
+          end: { i, j },
+          connected: false,
+        };
+
+        boxesCopy.push({
+          firstLine,
+          secondLine,
+          thirdLine,
+          forthLine,
+          connected: false,
+          connectedBy: "",
+        });
+      }
+    }
+
+    console.log(boxesCopy);
+
+    setBoxes(boxesCopy);
   };
 
   const handleMouseHover = (i: number, j: number, direction: string) => {

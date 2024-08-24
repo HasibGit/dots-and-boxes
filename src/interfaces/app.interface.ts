@@ -13,6 +13,7 @@ export interface ILineProps {
 
 export interface IDotProps {
   shouldBlink: boolean;
+  isPartOfConnectedBox: boolean;
 }
 
 export interface IDotCoordinate {

@@ -112,6 +112,20 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
     return dotsToBeConnected.some((dot) => dot.i == i && dot.j == j);
   };
 
+  const isPartOfConnectedBox = (i: number, j: number): boolean => {
+    const isMatchingCoordinate = (line: ILine) =>
+      (line.start.i === i && line.start.j === j) ||
+      (line.end.i === i && line.end.j === j);
+
+    return boxes.some(
+      (box) =>
+        box.connected &&
+        [box.firstLine, box.secondLine, box.thirdLine, box.forthLine].some(
+          isMatchingCoordinate
+        )
+    );
+  };
+
   const isSameDot = (
     firstDot: IDotCoordinate,
     secondDot: IDotCoordinate
@@ -301,6 +315,7 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                 <Dot
                   key={i + "" + j}
                   shouldBlink={isDotToBeConnected(i, j)}
+                  isPartOfConnectedBox={isPartOfConnectedBox(i, j)}
                 ></Dot>
                 {j < cols - 1 && (
                   <Line

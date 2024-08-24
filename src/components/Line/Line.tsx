@@ -1,15 +1,8 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Line.css";
+import { ILineProps } from "../../interfaces/app.interface";
 
-interface LineProps {
-  horizontal: boolean;
-  isConnected: boolean;
-  onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  onMouseLeave?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
-  onLineClick?: () => void;
-}
-
-const Line: React.FC<LineProps> = ({
+const Line: React.FC<ILineProps> = ({
   horizontal,
   isConnected,
   onMouseEnter,

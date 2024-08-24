@@ -1,28 +1,17 @@
 import React, { useEffect, useState } from "react";
 import Dot from "../Dot/Dot";
 import Line from "../Line/Line";
+import {
+  ICourtProps,
+  IDotCoordinate,
+  ILine,
+} from "../../interfaces/app.interface";
 
-interface CourtProps {
-  rows: number;
-  cols: number;
-}
-
-interface DotCoordinate {
-  i: number;
-  j: number;
-}
-
-interface Line {
-  start: DotCoordinate;
-  end: DotCoordinate;
-  connected: boolean;
-}
-
-const Court: React.FC<CourtProps> = ({ rows, cols }) => {
-  const [dotsToBeConnected, setDotsToBeConnected] = useState<DotCoordinate[]>(
+const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
+  const [dotsToBeConnected, setDotsToBeConnected] = useState<IDotCoordinate[]>(
     []
   );
-  const [lines, setLines] = useState<Line[]>([]);
+  const [lines, setLines] = useState<ILine[]>([]);
 
   useEffect(() => {
     calculateLines();
@@ -32,7 +21,7 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
     const linesCopy = [...lines];
     for (let i = 0; i < rows; i++) {
       for (let j = 0; j < cols - 1; j++) {
-        const line: Line = {
+        const line: ILine = {
           start: { i, j },
           end: { i, j: j + 1 },
           connected: false,
@@ -43,7 +32,7 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
 
     for (let j = 0; j < cols; j++) {
       for (let i = 0; i < rows - 1; i++) {
-        const line: Line = {
+        const line: ILine = {
           start: { i, j },
           end: { i: i + 1, j },
           connected: false,
@@ -57,16 +46,16 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
 
   const handleMouseHover = (i: number, j: number, direction: string) => {
     if (direction == "horizonal") {
-      const firstDot: DotCoordinate = { i, j };
-      const secondDot: DotCoordinate = { i, j: j + 1 };
+      const firstDot: IDotCoordinate = { i, j };
+      const secondDot: IDotCoordinate = { i, j: j + 1 };
 
       const newDotsToBeConnected = [firstDot, secondDot];
       setDotsToBeConnected(newDotsToBeConnected);
     }
 
     if (direction == "vertical") {
-      const firstDot: DotCoordinate = { i, j };
-      const secondDot: DotCoordinate = { i: i + 1, j };
+      const firstDot: IDotCoordinate = { i, j };
+      const secondDot: IDotCoordinate = { i: i + 1, j };
 
       const newDotsToBeConnected = [firstDot, secondDot];
       setDotsToBeConnected(newDotsToBeConnected);
@@ -78,24 +67,24 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
   };
 
   const isSameDot = (
-    firstDot: DotCoordinate,
-    secondDot: DotCoordinate
+    firstDot: IDotCoordinate,
+    secondDot: IDotCoordinate
   ): boolean => {
     return firstDot.i == secondDot.i && firstDot.j == secondDot.j;
   };
 
   const isDotPositionsMatch = (
-    line: Line,
-    firstDot: DotCoordinate,
-    secondDot: DotCoordinate
+    line: ILine,
+    firstDot: IDotCoordinate,
+    secondDot: IDotCoordinate
   ): boolean => {
     return isSameDot(line.start, firstDot) && isSameDot(line.end, secondDot);
   };
 
   const handleLineClick = (i: number, j: number, direction: string) => {
     if (direction == "horizonal") {
-      const firstDot: DotCoordinate = { i, j };
-      const secondDot: DotCoordinate = { i, j: j + 1 };
+      const firstDot: IDotCoordinate = { i, j };
+      const secondDot: IDotCoordinate = { i, j: j + 1 };
 
       const linesCopy = [...lines];
 
@@ -109,8 +98,8 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
     }
 
     if (direction == "vertical") {
-      const firstDot: DotCoordinate = { i, j };
-      const secondDot: DotCoordinate = { i: i + 1, j };
+      const firstDot: IDotCoordinate = { i, j };
+      const secondDot: IDotCoordinate = { i: i + 1, j };
 
       const linesCopy = [...lines];
 
@@ -130,8 +119,8 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
     direction: string
   ): boolean => {
     if (direction == "horizonal") {
-      const firstDot: DotCoordinate = { i, j };
-      const secondDot: DotCoordinate = { i, j: j + 1 };
+      const firstDot: IDotCoordinate = { i, j };
+      const secondDot: IDotCoordinate = { i, j: j + 1 };
 
       const line = lines.find(
         (line) =>
@@ -144,8 +133,8 @@ const Court: React.FC<CourtProps> = ({ rows, cols }) => {
         return false;
       }
     } else {
-      const firstDot: DotCoordinate = { i, j };
-      const secondDot: DotCoordinate = { i: i + 1, j };
+      const firstDot: IDotCoordinate = { i, j };
+      const secondDot: IDotCoordinate = { i: i + 1, j };
 
       const line = lines.find(
         (line) =>

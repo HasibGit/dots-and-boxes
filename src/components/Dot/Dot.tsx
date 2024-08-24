@@ -1,11 +1,8 @@
 import React from "react";
 import "./Dot.css";
+import { IDotProps } from "../../interfaces/app.interface";
 
-interface DotProps {
-  shouldBlink: boolean;
-}
-
-const Dot: React.FC<DotProps> = ({ shouldBlink }) => {
+const Dot: React.FC<IDotProps> = ({ shouldBlink }) => {
   return <div className={"dot " + (shouldBlink ? "blink" : "")}></div>;
 };
 

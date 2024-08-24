@@ -8,12 +8,13 @@ import {
   ILine,
 } from "../../interfaces/app.interface";
 
-const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
+const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
   const [dotsToBeConnected, setDotsToBeConnected] = useState<IDotCoordinate[]>(
     []
   );
   const [lines, setLines] = useState<ILine[]>([]);
   const [boxes, setBoxes] = useState<IBox[]>([]);
+  const [turn, setTurn] = useState("player1");
 
   useEffect(() => {
     calculateLines();
@@ -309,6 +310,12 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
       });
 
       setBoxes(boxesCopy);
+    }
+
+    if (turn == "player1") {
+      setTurn("player2");
+    } else {
+      setTurn("player1");
     }
   };
 

@@ -1,6 +1,8 @@
 export interface ICourtProps {
   rows: number;
   cols: number;
+  player1: string;
+  player2: string;
 }
 
 export interface ILineProps {

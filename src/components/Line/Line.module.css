@@ -51,7 +51,7 @@
 
 .connected {
   &:not(.partOfBox) {
-    background: linear-gradient(to right, #396afc, #2948ff);
+    background: linear-gradient(to right, #ff8008, #ffc837);
   }
 
   &.horizontalLine {

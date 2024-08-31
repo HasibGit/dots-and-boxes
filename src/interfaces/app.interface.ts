@@ -20,6 +20,10 @@ export interface IDotProps {
   isPartOfConnectedBox: boolean;
 }
 
+export interface IBoxLabelProps {
+  label: string;
+}
+
 export interface IDotCoordinate {
   i: number;
   j: number;

@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Line.module.css";
 import { ILineProps } from "../../interfaces/app.interface";
+import BoxLabel from "../BoxLabel/BoxLabel";
 
 const Line: React.FC<ILineProps> = ({
   horizontal,
@@ -30,7 +31,7 @@ const Line: React.FC<ILineProps> = ({
           isPartOfConnectedBox ? `${styles.partOfBox}` : styles.flashing
         }`}
       >
-        {label}
+        {label && <BoxLabel label={label}></BoxLabel>}
       </div>
     </div>
   );

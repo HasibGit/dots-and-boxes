@@ -26,7 +26,7 @@ const Line: React.FC<ILineProps> = ({
     >
       <div
         className={`${lineClass} ${isConnected ? `${styles.connected}` : " "} ${
-          isPartOfConnectedBox ? `${styles.partOfBox}` : ""
+          isPartOfConnectedBox ? `${styles.partOfBox}` : styles.flashing
         }`}
       ></div>
     </div>

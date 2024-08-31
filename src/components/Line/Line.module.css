@@ -48,7 +48,7 @@
 
 .connected {
   &:not(.partOfBox) {
-    background: linear-gradient(to right, #bbd2c5, #536976);
+    background: linear-gradient(to right, #396afc, #2948ff);
   }
 
   &.horizontalLine {
@@ -57,5 +57,19 @@
 
   &.verticalLine {
     width: 4px;
+  }
+}
+
+.flashing {
+  animation: flash 1s infinite;
+}
+
+@keyframes flash {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
   }
 }

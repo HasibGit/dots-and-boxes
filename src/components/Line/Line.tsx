@@ -10,6 +10,7 @@ const Line: React.FC<ILineProps> = ({
   onMouseEnter,
   onMouseLeave,
   onLineClick,
+  players,
   label,
 }) => {
   const wrapperClass = horizontal
@@ -31,7 +32,7 @@ const Line: React.FC<ILineProps> = ({
           isPartOfConnectedBox ? `${styles.partOfBox}` : styles.flashing
         }`}
       >
-        {label && <BoxLabel label={label}></BoxLabel>}
+        {label && <BoxLabel label={label} players={players}></BoxLabel>}
       </div>
     </div>
   );

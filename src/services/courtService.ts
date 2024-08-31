@@ -1,5 +1,6 @@
 import React from "react";
 import { IBox, IDotCoordinate, ILine } from "../interfaces/app.interface";
+import { LineAlignments } from "../enums/app-enums";
 
 const isSameDot = (
   firstDot: IDotCoordinate,
@@ -206,9 +207,11 @@ export class CourtService {
     setLines: React.Dispatch<React.SetStateAction<ILine[]>>,
     setBoxes: React.Dispatch<React.SetStateAction<IBox[]>>,
     turn: string,
-    setTurn: React.Dispatch<React.SetStateAction<string>>
+    setTurn: React.Dispatch<React.SetStateAction<string>>,
+    player1: string,
+    player2: string
   ) {
-    if (direction == "horizonal") {
+    if (direction == LineAlignments.horizonal) {
       const firstDot: IDotCoordinate = { i, j };
       const secondDot: IDotCoordinate = { i, j: j + 1 };
 
@@ -258,7 +261,7 @@ export class CourtService {
             box.forthLine.connected
           ) {
             box.connected = true;
-            box.connectedBy = "Hasib";
+            box.connectedBy = turn;
           }
         }
       });
@@ -316,7 +319,7 @@ export class CourtService {
             box.forthLine.connected
           ) {
             box.connected = true;
-            box.connectedBy = "Hasib";
+            box.connectedBy = turn;
           }
         }
       });
@@ -324,10 +327,10 @@ export class CourtService {
       setBoxes(boxesCopy);
     }
 
-    if (turn == "player1") {
-      setTurn("player2");
+    if (turn == player1) {
+      setTurn(player2);
     } else {
-      setTurn("player1");
+      setTurn(player1);
     }
   }
 
@@ -337,7 +340,7 @@ export class CourtService {
     direction: string,
     lines: ILine[]
   ): boolean {
-    if (direction == "horizonal") {
+    if (direction == LineAlignments.horizonal) {
       const firstDot: IDotCoordinate = { i, j };
       const secondDot: IDotCoordinate = { i, j: j + 1 };
 
@@ -398,5 +401,6 @@ export class CourtService {
     if (foundBox) {
       return foundBox.connectedBy;
     }
+    return "";
   }
 }

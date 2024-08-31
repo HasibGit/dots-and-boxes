@@ -10,13 +10,13 @@ import {
 import { CourtService } from "../../services/courtService";
 import { LineAlignments } from "../../enums/app-enums";
 
-const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
+const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
   const [dotsToBeConnected, setDotsToBeConnected] = useState<IDotCoordinate[]>(
     []
   );
   const [lines, setLines] = useState<ILine[]>([]);
   const [boxes, setBoxes] = useState<IBox[]>([]);
-  const [turn, setTurn] = useState("player1");
+  const [turn, setTurn] = useState(player1);
 
   const courtService = new CourtService();
 
@@ -93,9 +93,12 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                         setLines,
                         setBoxes,
                         turn,
-                        setTurn
+                        setTurn,
+                        player1,
+                        player2
                       )
                     }
+                    players={[player1, player2]}
                   />
                 )}
               </>
@@ -152,9 +155,12 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                       setLines,
                       setBoxes,
                       turn,
-                      setTurn
+                      setTurn,
+                      player1,
+                      player2
                     )
                   }
+                  players={[player1, player2]}
                   label={courtService.getBoxLabel(i, j, boxes)}
                 />
               ))}

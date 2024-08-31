@@ -12,6 +12,7 @@ export interface ILineProps {
   onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onLineClick?: () => void;
+  players: string[];
   label?: string;
 }
 
@@ -22,6 +23,7 @@ export interface IDotProps {
 
 export interface IBoxLabelProps {
   label: string;
+  players: string[];
 }
 
 export interface IDotCoordinate {

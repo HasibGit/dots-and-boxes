@@ -12,6 +12,7 @@ export interface ILineProps {
   onMouseEnter?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onMouseLeave?: (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
   onLineClick?: () => void;
+  label?: string;
 }
 
 export interface IDotProps {

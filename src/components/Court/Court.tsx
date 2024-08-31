@@ -155,6 +155,7 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                       setTurn
                     )
                   }
+                  label={courtService.getBoxLabel(i, j, boxes)}
                 />
               ))}
             </div>

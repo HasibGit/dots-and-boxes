@@ -9,6 +9,7 @@ const Line: React.FC<ILineProps> = ({
   onMouseEnter,
   onMouseLeave,
   onLineClick,
+  label,
 }) => {
   const wrapperClass = horizontal
     ? `${styles.horizontalWrapper}`
@@ -28,7 +29,9 @@ const Line: React.FC<ILineProps> = ({
         className={`${lineClass} ${isConnected ? `${styles.connected}` : " "} ${
           isPartOfConnectedBox ? `${styles.partOfBox}` : styles.flashing
         }`}
-      ></div>
+      >
+        {label}
+      </div>
     </div>
   );
 };

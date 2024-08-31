@@ -367,4 +367,36 @@ export class CourtService {
       }
     }
   }
+
+  getBoxLabel(i: number, j: number, boxes: IBox[]): string {
+    const firstDot: IDotCoordinate = { i, j };
+    const secondDot: IDotCoordinate = { i, j: j + 1 };
+    const thirdDot: IDotCoordinate = { i: i + 1, j: j + 1 };
+    const forthDot: IDotCoordinate = { i: i + 1, j };
+
+    const foundBox = boxes.find(
+      (box) =>
+        box.connected &&
+        box.firstLine.start.i == firstDot.i &&
+        box.firstLine.start.j == firstDot.j &&
+        box.firstLine.end.i == secondDot.i &&
+        box.firstLine.end.j == secondDot.j &&
+        box.secondLine.start.i == secondDot.i &&
+        box.secondLine.start.j == secondDot.j &&
+        box.secondLine.end.i == thirdDot.i &&
+        box.secondLine.end.j == thirdDot.j &&
+        box.thirdLine.start.i == thirdDot.i &&
+        box.thirdLine.start.j == thirdDot.j &&
+        box.thirdLine.end.i == forthDot.i &&
+        box.thirdLine.end.j == forthDot.j &&
+        box.forthLine.start.i == forthDot.i &&
+        box.forthLine.start.j == forthDot.j &&
+        box.forthLine.end.i == firstDot.i &&
+        box.forthLine.end.j == firstDot.j
+    );
+
+    if (foundBox) {
+      return foundBox.connectedBy;
+    }
+  }
 }

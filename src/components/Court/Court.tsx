@@ -8,6 +8,7 @@ import {
   ILine,
 } from "../../interfaces/app.interface";
 import { CourtService } from "../../services/courtService";
+import { LineAlignments } from "../../enums/app-enums";
 
 const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
   const [dotsToBeConnected, setDotsToBeConnected] = useState<IDotCoordinate[]>(
@@ -58,21 +59,26 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                     isConnected={courtService.isLineConnected(
                       i,
                       j,
-                      "horizonal",
+                      LineAlignments.horizonal,
                       lines
                     )}
                     isPartOfConnectedBox={courtService.isLinePartOfConnectedBox(
                       i,
                       j,
-                      "horizonal",
+                      LineAlignments.horizonal,
                       boxes
                     )}
                     onMouseEnter={() =>
-                      !courtService.isLineConnected(i, j, "horizonal", lines) &&
+                      !courtService.isLineConnected(
+                        i,
+                        j,
+                        LineAlignments.horizonal,
+                        lines
+                      ) &&
                       courtService.handleMouseHover(
                         i,
                         j,
-                        "horizonal",
+                        LineAlignments.horizonal,
                         setDotsToBeConnected
                       )
                     }
@@ -81,7 +87,7 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                       courtService.handleLineClick(
                         i,
                         j,
-                        "horizonal",
+                        LineAlignments.horizonal,
                         lines,
                         boxes,
                         setLines,
@@ -112,21 +118,26 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                   isConnected={courtService.isLineConnected(
                     i,
                     j,
-                    "vertical",
+                    LineAlignments.vertical,
                     lines
                   )}
                   isPartOfConnectedBox={courtService.isLinePartOfConnectedBox(
                     i,
                     j,
-                    "vertical",
+                    LineAlignments.vertical,
                     boxes
                   )}
                   onMouseEnter={() =>
-                    !courtService.isLineConnected(i, j, "vertical", lines) &&
+                    !courtService.isLineConnected(
+                      i,
+                      j,
+                      LineAlignments.vertical,
+                      lines
+                    ) &&
                     courtService.handleMouseHover(
                       i,
                       j,
-                      "vertical",
+                      LineAlignments.vertical,
                       setDotsToBeConnected
                     )
                   }
@@ -135,7 +146,7 @@ const Court: React.FC<ICourtProps> = ({ rows, cols }) => {
                     courtService.handleLineClick(
                       i,
                       j,
-                      "vertical",
+                      LineAlignments.vertical,
                       lines,
                       boxes,
                       setLines,

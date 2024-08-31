@@ -7,6 +7,7 @@ import {
   IDotCoordinate,
   ILine,
 } from "../../interfaces/app.interface";
+import { CourtService } from "../../services/courtService";
 
 const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
   const [dotsToBeConnected, setDotsToBeConnected] = useState<IDotCoordinate[]>(
@@ -16,37 +17,12 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
   const [boxes, setBoxes] = useState<IBox[]>([]);
   const [turn, setTurn] = useState("player1");
 
+  const courtService = new CourtService();
+
   useEffect(() => {
-    calculateLines();
+    courtService.calculateLines(lines, setLines, rows, cols);
     calculateBoxes();
   }, []);
-
-  const calculateLines = () => {
-    const linesCopy = [...lines];
-    for (let i = 0; i < rows; i++) {
-      for (let j = 0; j < cols - 1; j++) {
-        const line: ILine = {
-          start: { i, j },
-          end: { i, j: j + 1 },
-          connected: false,
-        };
-        linesCopy.push(line);
-      }
-    }
-
-    for (let j = 0; j < cols; j++) {
-      for (let i = 0; i < rows - 1; i++) {
-        const line: ILine = {
-          start: { i, j },
-          end: { i: i + 1, j },
-          connected: false,
-        };
-        linesCopy.push(line);
-      }
-    }
-
-    setLines(linesCopy);
-  };
 
   const calculateBoxes = () => {
     const boxesCopy = [...boxes];

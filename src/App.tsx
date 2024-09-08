@@ -6,13 +6,18 @@ import { useState } from "react";
 function App() {
   const [player1, setPlayer1] = useState("");
   const [player2, setPlayer2] = useState("");
+  const [gameStarted, setGameStarted] = useState(false);
   return (
     <>
       <div className="container">
-        {(!player1 || !player2) && (
-          <Start setPlayer1={setPlayer1} setPlayer2={setPlayer2} />
+        {!gameStarted && (
+          <Start
+            setPlayer1={setPlayer1}
+            setPlayer2={setPlayer2}
+            setGameStarted={setGameStarted}
+          />
         )}
-        {player1 && player2 && (
+        {gameStarted && (
           <Court rows={7} cols={9} player1="Joe" player2="Mike"></Court>
         )}
       </div>

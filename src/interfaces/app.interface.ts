@@ -8,6 +8,7 @@ export interface ICourtProps {
 export interface IStartProps {
   setPlayer1: (name: string) => void;
   setPlayer2: (name: string) => void;
+  setGameStarted: (condition: boolean) => void;
 }
 
 export interface InputProps {

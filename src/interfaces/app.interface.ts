@@ -5,6 +5,16 @@ export interface ICourtProps {
   player2: string;
 }
 
+export interface IStartProps {
+  setPlayer1: (name: string) => void;
+  setPlayer2: (name: string) => void;
+}
+
+export interface InputProps {
+  placeholder: string;
+  setValue: (value: string) => void;
+}
+
 export interface ILineProps {
   horizontal: boolean;
   isConnected: boolean;

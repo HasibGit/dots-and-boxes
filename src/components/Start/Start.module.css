@@ -9,12 +9,13 @@
   margin-bottom: 24px;
   font-size: 4rem;
   font-family: "Press Start 2P", cursive; /* Retro gaming font */
-  color: #0ff; /* Neon cyan color */
+  color: #ffa500; /* Orange color */
   text-shadow: 2px 2px 0 #000,
-    /* Dark shadow */ 4px 4px 0 rgba(0, 255, 255, 0.5); /* Glowing shadow */
-  background: linear-gradient(45deg, #0ff, #00f);
+    /* Dark shadow */ 4px 4px 0 rgba(255, 165, 0, 0.5); /* Glowing shadow */
+  background: linear-gradient(45deg, #ffa500, #ff4500);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  text-align: center;
 }
 
 .startGameButton {

@@ -5,6 +5,18 @@
   align-items: center;
 }
 
+.title {
+  margin-bottom: 24px;
+  font-size: 4rem;
+  font-family: "Press Start 2P", cursive; /* Retro gaming font */
+  color: #0ff; /* Neon cyan color */
+  text-shadow: 2px 2px 0 #000,
+    /* Dark shadow */ 4px 4px 0 rgba(0, 255, 255, 0.5); /* Glowing shadow */
+  background: linear-gradient(45deg, #0ff, #00f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .startGameButton {
   padding: 15px 30px;
   font-size: 18px;
@@ -17,6 +29,11 @@
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   margin-top: 24px;
+}
+
+.startGameButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 .startGameButton:hover {

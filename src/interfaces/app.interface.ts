@@ -6,6 +6,8 @@ export interface ICourtProps {
 }
 
 export interface IStartProps {
+  player1: string;
+  player2: string;
   setPlayer1: (name: string) => void;
   setPlayer2: (name: string) => void;
   setGameStarted: (condition: boolean) => void;

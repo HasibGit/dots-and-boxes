@@ -8,14 +8,22 @@ export interface ICourtProps {
 export interface IStartProps {
   player1: string;
   player2: string;
+  rows: number;
+  cols: number;
   setPlayer1: (name: string) => void;
   setPlayer2: (name: string) => void;
+  setRows: (rows: number) => void;
+  setCols: (cols: number) => void;
   setGameStarted: (condition: boolean) => void;
 }
 
 export interface InputProps {
   placeholder: string;
-  setValue: (value: string) => void;
+  type: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  value: any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  setValue: (value: any) => void;
 }
 
 export interface ILineProps {

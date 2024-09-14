@@ -211,6 +211,8 @@ export class CourtService {
     player1: string,
     player2: string
   ) {
+    let streakRunning = false;
+
     if (direction == LineAlignments.horizonal) {
       const firstDot: IDotCoordinate = { i, j };
       const secondDot: IDotCoordinate = { i, j: j + 1 };
@@ -262,6 +264,7 @@ export class CourtService {
           ) {
             box.connected = true;
             box.connectedBy = turn;
+            streakRunning = true;
           }
         }
       });
@@ -320,6 +323,7 @@ export class CourtService {
           ) {
             box.connected = true;
             box.connectedBy = turn;
+            streakRunning = true;
           }
         }
       });
@@ -327,10 +331,12 @@ export class CourtService {
       setBoxes(boxesCopy);
     }
 
-    if (turn == player1) {
-      setTurn(player2);
-    } else {
-      setTurn(player1);
+    if (!streakRunning) {
+      if (turn == player1) {
+        setTurn(player2);
+      } else {
+        setTurn(player1);
+      }
     }
   }
 

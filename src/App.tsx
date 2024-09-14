@@ -26,7 +26,12 @@ function App() {
           />
         )}
         {gameStarted && (
-          <Court rows={7} cols={9} player1="Joe" player2="Mike"></Court>
+          <Court
+            rows={rows}
+            cols={cols}
+            player1={player1}
+            player2={player2}
+          ></Court>
         )}
       </div>
     </>

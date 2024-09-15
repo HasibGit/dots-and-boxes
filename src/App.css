@@ -4,4 +4,42 @@
   align-items: center;
   height: 100vh;
   background-color: #f6f5f2;
+  position: relative;
+}
+
+.game-header {
+  font-family: "Press Start 2P", cursive; /* Game-like font */
+  font-size: 24px;
+  color: #ff8008; /* Bright color */
+  text-shadow: 2px 2px 4px #000; /* Dark shadow for a glowing effect */
+  background: linear-gradient(
+    90deg,
+    #00d2ff,
+    #3a7bd5
+  ); /* Gradient background */
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: 2px solid #000; /* Border to make it stand out */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Additional shadow */
+  display: inline-block; /* Ensures it wraps around text */
+  margin: 20px 0;
+  text-align: center; /* Centers the text */
+}
+
+.game-header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  position: absolute;
+  top: 0;
+}
+
+.footer {
+  position: absolute;
+  bottom: 20px;
+  font-size: 14px;
+  color: #777; /* Soft gray color */
+  text-align: center; /* Center align the text */
+  padding: 20px;
 }

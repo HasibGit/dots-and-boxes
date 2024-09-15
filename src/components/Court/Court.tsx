@@ -240,12 +240,15 @@ const Court: React.FC<ICourtProps> = ({
           </Button>,
         ]}
       >
-        <p>
-          {player1}'s score: {player1Score}
-        </p>
-        <p>
-          {player2}'s score: {player2Score}
-        </p>
+        <div style={{ margin: "20px 0" }}>
+          <p>
+            {player1}'s score: <b>{player1Score}</b>
+          </p>
+
+          <p>
+            {player2}'s score: <b>{player2Score}</b>
+          </p>
+        </div>
       </Modal>
     </>
   );

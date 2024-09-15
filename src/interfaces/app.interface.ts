@@ -4,6 +4,8 @@ export interface ICourtProps {
   player1: string;
   player2: string;
   setGameStarted: (state: boolean) => void;
+  restartGame: boolean;
+  setRestartGame: (value: boolean) => void;
 }
 
 export interface IStartProps {

@@ -17,6 +17,8 @@ const Court: React.FC<ICourtProps> = ({
   player1,
   player2,
   setGameStarted,
+  restartGame,
+  setRestartGame,
 }) => {
   const [dotsToBeConnected, setDotsToBeConnected] = useState<IDotCoordinate[]>(
     []
@@ -63,6 +65,13 @@ const Court: React.FC<ICourtProps> = ({
     courtService.calculateLines(lines, setLines, rows, cols);
     courtService.calculateBoxes(boxes, setBoxes, rows, cols);
   }, []);
+
+  useEffect(() => {
+    if (restartGame) {
+      handlePlayAgain();
+      setRestartGame(false);
+    }
+  }, [restartGame]);
 
   useEffect(() => {
     let timeOut: ReturnType<typeof setTimeout>;

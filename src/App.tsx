@@ -11,6 +11,12 @@ function App() {
   const [rows, setRows] = useState(5);
   const [cols, setCols] = useState(5);
   const [gameStarted, setGameStarted] = useState(false);
+  const [restartGame, setRestartGame] = useState(false);
+
+  const handleRestart = () => {
+    setRestartGame(true);
+  };
+
   return (
     <>
       <div className="container">
@@ -23,7 +29,11 @@ function App() {
               style={{ display: "flex", justifyContent: "end", gap: "10px" }}
             >
               <Tooltip title="Restart Game">
-                <Button color="primary" icon={<RedoOutlined />}></Button>
+                <Button
+                  color="primary"
+                  icon={<RedoOutlined />}
+                  onClick={handleRestart}
+                ></Button>
               </Tooltip>
 
               <Tooltip title="Main Menu">
@@ -56,6 +66,8 @@ function App() {
             player1={player1}
             player2={player2}
             setGameStarted={setGameStarted}
+            restartGame={restartGame}
+            setRestartGame={setRestartGame}
           ></Court>
         )}
 

@@ -10,6 +10,7 @@ import {
 import { CourtService } from "../../services/courtService";
 import { LineAlignments } from "../../enums/app-enums";
 import { Button, Modal } from "antd";
+import { Alert } from "antd";
 
 const Court: React.FC<ICourtProps> = ({
   rows,
@@ -89,6 +90,11 @@ const Court: React.FC<ICourtProps> = ({
   return (
     <>
       <div style={{ display: "flex", flexDirection: "column" }}>
+        <Alert
+          style={{ marginBottom: "24px" }}
+          message={`${turn}'s turn..`}
+          type="warning"
+        />
         {Array.from({ length: rows }, (_, i) => (
           <>
             <div

@@ -31,6 +31,7 @@ function App() {
             cols={cols}
             player1={player1}
             player2={player2}
+            setGameStarted={setGameStarted}
           ></Court>
         )}
       </div>

@@ -9,8 +9,15 @@ import {
 } from "../../interfaces/app.interface";
 import { CourtService } from "../../services/courtService";
 import { LineAlignments } from "../../enums/app-enums";
+import { Button, Modal } from "antd";
 
-const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
+const Court: React.FC<ICourtProps> = ({
+  rows,
+  cols,
+  player1,
+  player2,
+  setGameStarted,
+}) => {
   const [dotsToBeConnected, setDotsToBeConnected] = useState<IDotCoordinate[]>(
     []
   );
@@ -20,8 +27,35 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
   const [player1Score, setPlayer1Score] = useState(0);
   const [player2Score, setPlayer2Score] = useState(0);
   const [countOfConnectedBoxes, setCountOfConnectedBoxes] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const courtService = new CourtService();
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handlePlayAgain = () => {
+    setDotsToBeConnected([]);
+    setLines([]);
+    setBoxes([]);
+    setTurn(player1);
+    setPlayer1Score(0);
+    setPlayer2Score(0);
+    setCountOfConnectedBoxes(0);
+    setIsModalOpen(false);
+  };
+
+  const handleGoToMainMenu = () => {
+    setIsModalOpen(false);
+    setGameStarted(false);
+  };
+
+  const getGameOverTitle = () => {
+    if (player1Score == player2Score) return "It's a draw! 😑";
+    else if (player1Score > player2Score) return `${player1} wins! 🎉🎉`;
+    else if (player2Score > player1Score) return `${player2} wins! 🎉🎉`;
+  };
 
   useEffect(() => {
     courtService.calculateLines(lines, setLines, rows, cols);
@@ -32,9 +66,7 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
     let timeOut: ReturnType<typeof setTimeout>;
     if (boxes.length > 0 && countOfConnectedBoxes == boxes.length) {
       timeOut = setTimeout(() => {
-        alert(
-          `Game Over. ${player1}'s Score: ${player1Score} | ${player2}'s Score: ${player2Score}`
-        );
+        showModal();
       }, 500);
     }
 
@@ -42,59 +74,125 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
   }, [countOfConnectedBoxes]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      {Array.from({ length: rows }, (_, i) => (
-        <>
-          <div
-            key={i}
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {Array.from({ length: cols }, (_, j) => (
-              <>
-                <Dot
-                  key={i + "" + j}
-                  shouldBlink={courtService.isDotToBeConnected(
-                    i,
-                    j,
-                    dotsToBeConnected
+    <>
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        {Array.from({ length: rows }, (_, i) => (
+          <>
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {Array.from({ length: cols }, (_, j) => (
+                <>
+                  <Dot
+                    key={i + "" + j}
+                    shouldBlink={courtService.isDotToBeConnected(
+                      i,
+                      j,
+                      dotsToBeConnected
+                    )}
+                    isPartOfConnectedBox={courtService.isDotPartOfConnectedBox(
+                      i,
+                      j,
+                      boxes
+                    )}
+                  ></Dot>
+                  {j < cols - 1 && (
+                    <Line
+                      key={i + "line" + j}
+                      horizontal={true}
+                      isConnected={courtService.isLineConnected(
+                        i,
+                        j,
+                        LineAlignments.horizonal,
+                        lines
+                      )}
+                      isPartOfConnectedBox={courtService.isLinePartOfConnectedBox(
+                        i,
+                        j,
+                        LineAlignments.horizonal,
+                        boxes
+                      )}
+                      onMouseEnter={() =>
+                        !courtService.isLineConnected(
+                          i,
+                          j,
+                          LineAlignments.horizonal,
+                          lines
+                        ) &&
+                        courtService.handleMouseHover(
+                          i,
+                          j,
+                          LineAlignments.horizonal,
+                          setDotsToBeConnected
+                        )
+                      }
+                      onMouseLeave={() => setDotsToBeConnected([])}
+                      onLineClick={() =>
+                        courtService.handleLineClick(
+                          i,
+                          j,
+                          LineAlignments.horizonal,
+                          lines,
+                          boxes,
+                          setLines,
+                          setBoxes,
+                          turn,
+                          setTurn,
+                          player1,
+                          player2,
+                          setPlayer1Score,
+                          setPlayer2Score,
+                          setCountOfConnectedBoxes
+                        )
+                      }
+                      players={[player1, player2]}
+                    />
                   )}
-                  isPartOfConnectedBox={courtService.isDotPartOfConnectedBox(
-                    i,
-                    j,
-                    boxes
-                  )}
-                ></Dot>
-                {j < cols - 1 && (
+                </>
+              ))}
+            </div>
+
+            {i < rows - 1 && (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "38px",
+                }}
+              >
+                {Array.from({ length: cols }, (_, j) => (
                   <Line
-                    key={i + "line" + j}
-                    horizontal={true}
+                    key={i + "" + j}
+                    horizontal={false}
                     isConnected={courtService.isLineConnected(
                       i,
                       j,
-                      LineAlignments.horizonal,
+                      LineAlignments.vertical,
                       lines
                     )}
                     isPartOfConnectedBox={courtService.isLinePartOfConnectedBox(
                       i,
                       j,
-                      LineAlignments.horizonal,
+                      LineAlignments.vertical,
                       boxes
                     )}
                     onMouseEnter={() =>
                       !courtService.isLineConnected(
                         i,
                         j,
-                        LineAlignments.horizonal,
+                        LineAlignments.vertical,
                         lines
                       ) &&
                       courtService.handleMouseHover(
                         i,
                         j,
-                        LineAlignments.horizonal,
+                        LineAlignments.vertical,
                         setDotsToBeConnected
                       )
                     }
@@ -103,7 +201,7 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
                       courtService.handleLineClick(
                         i,
                         j,
-                        LineAlignments.horizonal,
+                        LineAlignments.vertical,
                         lines,
                         boxes,
                         setLines,
@@ -118,79 +216,35 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
                       )
                     }
                     players={[player1, player2]}
+                    label={courtService.getBoxLabel(i, j, boxes)}
                   />
-                )}
-              </>
-            ))}
-          </div>
+                ))}
+              </div>
+            )}
+          </>
+        ))}
+      </div>
 
-          {i < rows - 1 && (
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "38px",
-              }}
-            >
-              {Array.from({ length: cols }, (_, j) => (
-                <Line
-                  key={i + "" + j}
-                  horizontal={false}
-                  isConnected={courtService.isLineConnected(
-                    i,
-                    j,
-                    LineAlignments.vertical,
-                    lines
-                  )}
-                  isPartOfConnectedBox={courtService.isLinePartOfConnectedBox(
-                    i,
-                    j,
-                    LineAlignments.vertical,
-                    boxes
-                  )}
-                  onMouseEnter={() =>
-                    !courtService.isLineConnected(
-                      i,
-                      j,
-                      LineAlignments.vertical,
-                      lines
-                    ) &&
-                    courtService.handleMouseHover(
-                      i,
-                      j,
-                      LineAlignments.vertical,
-                      setDotsToBeConnected
-                    )
-                  }
-                  onMouseLeave={() => setDotsToBeConnected([])}
-                  onLineClick={() =>
-                    courtService.handleLineClick(
-                      i,
-                      j,
-                      LineAlignments.vertical,
-                      lines,
-                      boxes,
-                      setLines,
-                      setBoxes,
-                      turn,
-                      setTurn,
-                      player1,
-                      player2,
-                      setPlayer1Score,
-                      setPlayer2Score,
-                      setCountOfConnectedBoxes
-                    )
-                  }
-                  players={[player1, player2]}
-                  label={courtService.getBoxLabel(i, j, boxes)}
-                />
-              ))}
-            </div>
-          )}
-        </>
-      ))}
-    </div>
+      <Modal
+        title={getGameOverTitle()}
+        open={isModalOpen}
+        footer={[
+          <Button type="primary" onClick={handlePlayAgain}>
+            Play Again
+          </Button>,
+          <Button type="primary" onClick={handleGoToMainMenu}>
+            Main Menu
+          </Button>,
+        ]}
+      >
+        <p>
+          {player1}'s score: {player1Score}
+        </p>
+        <p>
+          {player2}'s score: {player2Score}
+        </p>
+      </Modal>
+    </>
   );
 };
 

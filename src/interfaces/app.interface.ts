@@ -3,6 +3,7 @@ export interface ICourtProps {
   cols: number;
   player1: string;
   player2: string;
+  setGameStarted: (state: boolean) => void;
 }
 
 export interface IStartProps {

@@ -10,7 +10,7 @@
 .game-header {
   font-family: "Press Start 2P", cursive; /* Game-like font */
   font-size: 24px;
-  color: #ff8008; /* Bright color */
+  color: #fff; /* Bright color */
   text-shadow: 2px 2px 4px #000; /* Dark shadow for a glowing effect */
   background: linear-gradient(
     90deg,
@@ -19,7 +19,6 @@
   ); /* Gradient background */
   padding: 10px 20px;
   border-radius: 10px;
-  border: 2px solid #000; /* Border to make it stand out */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Additional shadow */
   display: inline-block; /* Ensures it wraps around text */
   margin: 20px 0;

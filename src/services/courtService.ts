@@ -214,6 +214,9 @@ export class CourtService {
     setPlayer2Score: React.Dispatch<React.SetStateAction<number>>,
     setCountOfConnectedBoxes: React.Dispatch<React.SetStateAction<number>>
   ) {
+    const clickSound = new Audio("/click.mp3");
+    const successSound = new Audio("/success.mp3");
+
     let streakRunning = false;
 
     if (direction == LineAlignments.horizonal) {
@@ -265,6 +268,7 @@ export class CourtService {
             box.thirdLine.connected &&
             box.forthLine.connected
           ) {
+            successSound.play();
             box.connected = true;
             box.connectedBy = turn;
             streakRunning = true;
@@ -278,6 +282,8 @@ export class CourtService {
             }
 
             setCountOfConnectedBoxes((prevCount) => prevCount + 1);
+          } else {
+            clickSound.play();
           }
         }
       });
@@ -334,6 +340,7 @@ export class CourtService {
             box.thirdLine.connected &&
             box.forthLine.connected
           ) {
+            successSound.play();
             box.connected = true;
             box.connectedBy = turn;
             streakRunning = true;
@@ -347,6 +354,8 @@ export class CourtService {
             }
 
             setCountOfConnectedBoxes((prevCount) => prevCount + 1);
+          } else {
+            clickSound.play();
           }
         }
       });

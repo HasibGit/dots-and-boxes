@@ -77,6 +77,8 @@ const Court: React.FC<ICourtProps> = ({
     let timeOut: ReturnType<typeof setTimeout>;
     if (boxes.length > 0 && countOfConnectedBoxes == boxes.length) {
       timeOut = setTimeout(() => {
+        const gameCompleteSound = new Audio("/game-complete.mp3");
+        gameCompleteSound.play();
         showModal();
       }, 500);
     }

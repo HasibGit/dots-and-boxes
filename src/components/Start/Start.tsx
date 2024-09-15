@@ -14,6 +14,12 @@ const Start: React.FC<IStartProps> = ({
   setCols,
   setGameStarted,
 }) => {
+  const handleGameStart = () => {
+    const startSound = new Audio("/game-start.mp3");
+    startSound.play();
+    setGameStarted(true);
+  };
+
   return (
     <div className={styles.startGameContainer}>
       <h1 className={styles.title}>Dots and Boxes</h1>
@@ -39,7 +45,7 @@ const Start: React.FC<IStartProps> = ({
 
       <button
         className={styles.startGameButton}
-        onClick={() => setGameStarted(true)}
+        onClick={handleGameStart}
         disabled={!player1 || !player2 || !rows || !cols}
       >
         Start Game

@@ -15,9 +15,15 @@ const Start: React.FC<IStartProps> = ({
   setGameStarted,
 }) => {
   const handleGameStart = () => {
-    const startSound = new Audio("/game-start.mp3");
-    startSound.play();
-    setGameStarted(true);
+    if (rows < 4 || cols < 4 || rows > 10 || cols > 10) {
+      alert(
+        "Invalid Grid Size! Rows or Columns value must be in between 4 and 10"
+      );
+    } else {
+      const startSound = new Audio("/game-start.mp3");
+      startSound.play();
+      setGameStarted(true);
+    }
   };
 
   return (

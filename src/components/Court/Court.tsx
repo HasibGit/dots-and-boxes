@@ -230,6 +230,7 @@ const Court: React.FC<ICourtProps> = ({
       <Modal
         title={getGameOverTitle()}
         open={isModalOpen}
+        closable={false}
         footer={[
           <Button type="primary" onClick={handlePlayAgain}>
             Play Again

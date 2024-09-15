@@ -17,6 +17,9 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
   const [lines, setLines] = useState<ILine[]>([]);
   const [boxes, setBoxes] = useState<IBox[]>([]);
   const [turn, setTurn] = useState(player1);
+  const [player1Score, setPlayer1Score] = useState(0);
+  const [player2Score, setPlayer2Score] = useState(0);
+  const [countOfConnectedBoxes, setCountOfConnectedBoxes] = useState(0);
 
   const courtService = new CourtService();
 
@@ -24,6 +27,19 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
     courtService.calculateLines(lines, setLines, rows, cols);
     courtService.calculateBoxes(boxes, setBoxes, rows, cols);
   }, []);
+
+  useEffect(() => {
+    let timeOut: ReturnType<typeof setTimeout>;
+    if (boxes.length > 0 && countOfConnectedBoxes == boxes.length) {
+      timeOut = setTimeout(() => {
+        alert(
+          `Game Over. ${player1}'s Score: ${player1Score} | ${player2}'s Score: ${player2Score}`
+        );
+      }, 500);
+    }
+
+    return () => clearTimeout(timeOut);
+  }, [countOfConnectedBoxes]);
 
   return (
     <div style={{ display: "flex", flexDirection: "column" }}>
@@ -95,7 +111,10 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
                         turn,
                         setTurn,
                         player1,
-                        player2
+                        player2,
+                        setPlayer1Score,
+                        setPlayer2Score,
+                        setCountOfConnectedBoxes
                       )
                     }
                     players={[player1, player2]}
@@ -157,7 +176,10 @@ const Court: React.FC<ICourtProps> = ({ rows, cols, player1, player2 }) => {
                       turn,
                       setTurn,
                       player1,
-                      player2
+                      player2,
+                      setPlayer1Score,
+                      setPlayer2Score,
+                      setCountOfConnectedBoxes
                     )
                   }
                   players={[player1, player2]}

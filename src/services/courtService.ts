@@ -209,7 +209,10 @@ export class CourtService {
     turn: string,
     setTurn: React.Dispatch<React.SetStateAction<string>>,
     player1: string,
-    player2: string
+    player2: string,
+    setPlayer1Score: React.Dispatch<React.SetStateAction<number>>,
+    setPlayer2Score: React.Dispatch<React.SetStateAction<number>>,
+    setCountOfConnectedBoxes: React.Dispatch<React.SetStateAction<number>>
   ) {
     let streakRunning = false;
 
@@ -265,6 +268,16 @@ export class CourtService {
             box.connected = true;
             box.connectedBy = turn;
             streakRunning = true;
+
+            if (turn == player1) {
+              setPlayer1Score((prevScore) => prevScore + 1);
+            }
+
+            if (turn == player2) {
+              setPlayer2Score((prevScore) => prevScore + 1);
+            }
+
+            setCountOfConnectedBoxes((prevCount) => prevCount + 1);
           }
         }
       });
@@ -272,7 +285,7 @@ export class CourtService {
       setBoxes(boxesCopy);
     }
 
-    if (direction == "vertical") {
+    if (direction == LineAlignments.vertical) {
       const firstDot: IDotCoordinate = { i, j };
       const secondDot: IDotCoordinate = { i: i + 1, j };
 
@@ -324,6 +337,16 @@ export class CourtService {
             box.connected = true;
             box.connectedBy = turn;
             streakRunning = true;
+
+            if (turn == player1) {
+              setPlayer1Score((prevScore) => prevScore + 1);
+            }
+
+            if (turn == player2) {
+              setPlayer2Score((prevScore) => prevScore + 1);
+            }
+
+            setCountOfConnectedBoxes((prevCount) => prevCount + 1);
           }
         }
       });

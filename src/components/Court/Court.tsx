@@ -43,6 +43,8 @@ const Court: React.FC<ICourtProps> = ({
     setPlayer1Score(0);
     setPlayer2Score(0);
     setCountOfConnectedBoxes(0);
+    courtService.calculateLines([], setLines, rows, cols);
+    courtService.calculateBoxes([], setBoxes, rows, cols);
     setIsModalOpen(false);
   };
 
